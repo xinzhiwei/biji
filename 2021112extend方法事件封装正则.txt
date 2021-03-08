@@ -1,0 +1,41 @@
+ 如何在微信中唤起其他的app？
+   1. 如果在移动端web页面中调用app？ 
+      前提 a. 网页是直接在移动浏览器中访问的
+           b. 网页是嵌入在app中的(web view) 
+             --实现方式： 由APP开发者制定一个协议
+               （一般协议http://www.baidu.com/getUserInfo）
+             -- 原生app协议地址如：sdk://xxx.com/getUserInfo
+             -- 前端直接通过页面跳转就可以了
+                  a. a标签   b. location.href=''
+   
+   2. 微信中一个网页，呼起app？
+      -- 微信对应一般用户并不支持跳转app
+      -- 微信只针对一些大客户 （京东、携程）才会提供跳转的接口 
+      -- 如果小客户需要使用这种功能，可以去第三方平台进行购买凭证
+
+  拷贝继承 (提供数据对象，接收数据对象)
+  jQuery.fn.extend = jQuery.extend = function(...args) {
+    // 接收数据对象
+    let target；
+    let sources = []; // 接收数据的对象
+    // 参数个数为1
+    if(args.length ===1) {
+      target = this;
+      sources.push(args[0]);
+    } else {
+      target = args[0];
+      sources.push(...args);
+      sources.splice(0,1);
+    }
+
+    // 完成拷贝的逻辑
+    sources.forEach(function(sources){
+      // 获取对象中的每一个属性
+      Object.keys(sources).forEach(function(key){
+        target[key] = sources[key];
+      })
+    })  
+    // 返回拷贝结果
+    return target;
+
+  }   

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$("div").css('color', 'red') 的封装</title>
+</head>
+<body>
+  <div>111</div>
+  <div>222</div>
+  <div>333</div>
+  <div class="head">head</div>
+   <script>
+     (function(global){
+       function jQuery(selector) {
+         return new F(selector)
+       }
+       
+       function F(selector) {
+         //把dom元素放到对象中
+         const elements = document.querySelectorAll(selector);
+         // 为了让这些元素可以在css方法中进行访问，所以需要把这些
+         // 元素放到对象上面进行传递
+         // jquery 为了后续的DOM操作的方便，将这些获取的DOM元素放到了对象自己的身上了并没有放到自定义的elements上。让自己变成一个就像数组一样，可以使用for循环进行遍历，我们称这种对象为伪数组
+
+         // 实现把这些DOM元素都添加到对象自己身上
+         for(let i=0;i<elements.length;i++) {
+           var ele = elements[i];
+           this[i] = ele;
+         }
+         this.length = elements.length;
+       }
+
+       F.prototype = {
+         constructor: F,
+         // 此时css方法还是雏形，后续完善
+         css(name,value) {
+           for(let i=0;i<this.length;i++) {
+             let element = this[i];
+             element.style[name]=value;
+           }
+         }
+       }
+
+       window.$ = window.jQuery = jQuery;
+     })(window)
+
+     $(".head").css('color', 'red')
+   </script>
+</body>
+</html>

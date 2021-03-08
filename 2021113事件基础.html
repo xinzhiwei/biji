@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件绑定1</title>
+</head>
+<body>
+   <div id="content">addEventListener</div>
+   <script>
+     var dom1 = document.querySelector('#content');
+     dom1.addEventListener('click', function(e){
+       alert('1');
+     })
+     dom1.addEventListener('click', function(){
+       alert('2');
+       // ES严格模式禁用了arguments.callee
+       var _this = arguments.callee; // 当前函数本身
+       dom1.removeEventListener('click', _this);
+     }) 
+     function f3(e){
+       alert('3');
+     }
+     dom1.addEventListener('click', f3);
+     dom1.removeEventListener('click', f3);
+
+     dom1.addEventListener('click', function f1() {
+       alert('111');
+       dom1.removeEventListener('click', f1);
+     })
+   </script>
+</body>
+</html>

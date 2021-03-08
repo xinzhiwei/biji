@@ -1,0 +1,10 @@
+Function.prototype._bind = function(target) {
+  return (()=>{
+    // fn函数的逻辑
+    this.call(target);
+  })()
+}
+
+fn() {}
+
+fn.bind({name: '11'})

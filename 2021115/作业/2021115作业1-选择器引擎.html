@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>选择器引擎</title>
+</head>
+<body>
+  <h1>正则判断选择器引擎</h1>
+  <script>
+    // $('#abc') id  $('.abc') 类  $('span') 标签
+    function $(selector) {
+      if(/^#\D[A-Za-z0-9]*$/.test(selector)) {
+        console.log('id选择器');
+      } else if(/^\.\D[A-Za-z0-9]*$/.test(selector)) {
+        console.log('类选择器');
+      } else if(/^[a-zA-Z][a-zA-Z0-9]*$/.test(selector)) {
+        console.log('标签选择器');
+      } else {
+        console.log('其他选择器');
+      }
+    }
+  </script>
+</body>
+</html>

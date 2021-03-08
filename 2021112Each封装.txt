@@ -1,0 +1,8 @@
+判断数组 Object.prototype.toString();
+如何判断obj数组或者obj伪数组
+if((length in obj) && obj.length >= 0) {
+  是数组或者伪数组
+} else {
+  不是数组或者伪数组
+}
+

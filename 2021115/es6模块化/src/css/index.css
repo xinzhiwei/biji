@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  display: flex;
+}
+
+.main .aside {
+  width: 200px;
+  height: 600px;
+  background-color: rgb(248, 215, 221);
+}
+
+.main .aside .aside-item {
+  text-align: center;
+  list-style: none;
+  padding: 30px 0;
+  border-bottom: 1px solid rgb(15, 15, 15);
+  cursor: pointer;
+}
+
+.main .content {
+  flex: 1;
+  height: 600px;
+  background-color: rgb(158, 180, 245);
+}

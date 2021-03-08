@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$("div").css('color', 'red') 的封装</title>
+</head>
+<body>
+  <div>111</div>
+  <div>222</div>
+  <div>333</div>
+  <div class="head">head</div>
+   <script>
+     (function(global){
+       function jQuery(selector) {
+         return new jQuery.prototype.init(selector)
+       }
+
+       //  给jQuery添加了一个fn属性，fn属性等价于jQuery.prototype
+       jQuery.fn = jQuery.prototype = {
+         constructor: jQuery,
+         init: function(selector) {
+          //把dom元素放到对象中
+          const elements = document.querySelectorAll(selector);
+          for(let i=0;i<elements.length;i++) {
+            var ele = elements[i];
+            this[i] = ele;
+          }
+          this.length = elements.length;
+        },
+         // 此时css方法还是雏形，后续完善
+         css(name,value) {
+           for(let i=0;i<this.length;i++) {
+             let element = this[i];
+             element.style[name]=value;
+           }
+         }
+       }
+
+       // 此时创建的jquery是init构造函数的实例
+         // css方法在jquery.prototype对象中
+         // ---为了让jquery对象可以访问到css方法
+         // 让init的原型继承自jQuery.prototype
+         jQuery.fn.init.prototype = jQuery.prototype;
+         // 1.创建一个init的对象
+         // 2.执行css方法
+         // 找对象本身有没有css方法， 并没有
+         // 找对象的原型： init.prototype -- jQuery.prototype
+         // 发现jQuery.prototype中有个css方法
+
+       window.$ = window.jQuery = jQuery;
+     })(window)
+
+     $("div").css('color', 'blue');
+     $(".head").css('color', 'red');
+   </script>
+</body>
+</html>
